@@ -40,6 +40,10 @@ func main() {
 ```powershell
 % go run main.go
 hello world
+---- build and excure ----
+% go build main.go
+% ./main
+hello world
 ```
 
 

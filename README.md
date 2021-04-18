@@ -46,5 +46,43 @@ hello world
 hello world
 ```
 
+## Implement
+
+### Create interface 
+1. Create IContext interface : ใช้สำหรับ handle request and response context
+
+```golang
+type IContext interface {
+	Log(message string) // log
+	Param(name string) string // Get path param
+	QueryParam(name string) string // Get query paran
+	ReadInput() string // Read request body
+	Response(responseCode int, responseData interface{}) //Response body
+}
+```
+
+2. Create IMicroservice interface : ใช้สำหรับกำหนดการทำงานทั้งหมดของ microservice
+
+
+```golang
+type IMicroservice interface {
+	Start() error
+	Cleanup() error
+
+	// HTTP Services
+	GET(path string, h ServiceHandleFunc)
+	POST(path string, h ServiceHandleFunc)
+	PUT(path string, h ServiceHandleFunc)
+	PATCH(path string, h ServiceHandleFunc)
+	DELETE(path string, h ServiceHandleFunc)
+}
+
+//Function types
+// define this type for implement function
+type ServiceHandleFunc func(ctx IContext) error
+```
+
+> การที่เราทำการ Implement interface เป็นส่วนหนึ่งของ design pattern นั้นก็คือ ``design pattern proxy``
+
 
 
